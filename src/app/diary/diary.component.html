@@ -1,0 +1,157 @@
+<!-- Diary Header -->
+<div class="diary-container">
+    <p class="top">{{title}}</p>
+
+    <button type="button" class="but btn btn-primary d-flex align-items-center" (click)="openModal()">
+        <i class="bi bi-plus fs-2 me-2"></i> Add New Diary
+    </button>
+</div>
+
+<!-- Modal Structure -->
+<div *ngIf="isModalOpen" class="modal fade" id="diaryModal" tabindex="-1" aria-labelledby="diaryModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="diaryModalLabel">Diary Form</h5>
+                <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="info-container shadow">
+                    <form [formGroup]="diaryForm" (ngSubmit)="onSubmit()">
+                        <div class="d-flex flex-column gap-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="subject" class="mb-0">Subject:</label>
+                                <div *ngIf="diaryForm.get('subject')?.touched && diaryForm.get('subject')?.invalid"
+                                    class="text-danger">
+                                    <small>Subject is required</small>
+                                </div>
+                            </div>
+                            <input id="subject" class="field" formControlName="subject" [value]="subject$ | async"
+                                type="text" placeholder="Enter subject" [ngStyle]="{
+                                    'border': diaryForm.get('subject')?.touched && diaryForm.get('subject')?.invalid ? '2px solid red' : '1px solid black'
+                                }" />
+                        </div>
+
+                        <div class="d-flex flex-column gap-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="mood" class="mb-0">Mood:</label>
+                                <div *ngIf="diaryForm.get('mood')?.touched && diaryForm.get('mood')?.invalid"
+                                    class="text-danger">
+                                    <small>Mood is required</small>
+                                </div>
+                            </div>
+                            <input id="mood" formControlName="mood" [value]="mood$ | async" type="text"
+                                placeholder="Enter your mood" class="field" [ngStyle]="{
+                                    'border': diaryForm.get('mood')?.touched && diaryForm.get('mood')?.invalid ? '2px solid red' : '1px solid black'
+                                }" />
+                        </div>
+
+                        <div class="d-flex flex-column gap-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="date" class="mb-0">Date:</label>
+                                <div *ngIf="diaryForm.get('date')?.touched && diaryForm.get('date')?.invalid"
+                                    class="text-danger">
+                                    <small>Date is required</small>
+                                </div>
+                            </div>
+                            <input id="date" class="field" formControlName="date" [value]="date$ | async" type="date"
+                                class="field" [ngStyle]="{
+                                    'border': diaryForm.get('date')?.touched && diaryForm.get('date')?.invalid ? '2px solid red' : '1px solid black'
+                                }" />
+                        </div>
+
+                        <div class="d-flex flex-column gap-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="note" class="mb-0">Note:</label>
+                                <div *ngIf="diaryForm.get('note')?.touched && diaryForm.get('note')?.invalid"
+                                    class="text-danger">
+                                    <small>Note is required</small>
+                                </div>
+                            </div>
+                            <textarea id="note" formControlName="note" [value]="note$ | async"
+                                placeholder="Write your note here" class="field note" [ngStyle]="{
+                                    'border': diaryForm.get('note')?.touched && diaryForm.get('note')?.invalid ? '2px solid red' : '1px solid black'
+                                }">
+                            </textarea>
+                        </div>
+
+                        <div class="button-section">
+                            <button class="but res submit-button" (click)="diaryForm.reset()">Reset</button>
+                            <button *ngIf="diaryForm.valid" class="but submit-button" type="submit">
+                                Submit
+                            </button>
+                            <button *ngIf="diaryForm.invalid" class="but submit-button" type="submit" disabled>
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Diary Entries -->
+<div class="container mt-5" style="max-width: 1000px;">
+    <h2 class="text-center header">Diary Entries</h2>
+
+    <div class="overflow-y-auto hide-scrollbar" style="max-height: 500px;">
+        <div *ngIf="diaryEntries.length === 0" class="text-center text-muted">
+            <p>No entries recorded</p>
+        </div>
+        
+        <ul class="list-group grid-layout">
+            <li *ngFor="let entry of diaryEntries; let i = index"
+                class="list-group-item diary-entries mb-3 position-relative">
+                <div class="d-flex justify-content-between">
+                    <span><strong>Subject: {{ entry.subject | uppercase }}</strong></span>
+                    <strong class="text-end">{{ entry.date }}</strong>
+                </div>
+                Mood: {{ entry.mood }} <br><br> Note: <p>{{ entry.note | slice:0:110 }}<span *ngIf="entry.note.length > 110">...</span></p>
+                <button (click)="deleteDiaryEntry(i)" class="btn delete-overlay">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<!-- Accordion
+<div class="container mt-5" style="max-width: 1000px;">
+    <h2 class="text-center">Diary Entries</h2>
+    <div class="overflow-y-auto" style="max-height: 500px;">
+        <ul class="list-group grid-layout">
+            <li *ngFor="let entry of diaryEntries; let i = index"
+                class="list-group-item diary-entries mt-3 position-relative">
+                <div ngbAccordion class="custom-accordion">
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton class="text-center custom-accordion-button"  style="display: inline-block;">
+                                <div class="d-flex justify-content-between w-100 mb-2">
+                                    <span><strong>Subject: {{ entry.subject }}</strong></span>
+                                    <strong class="text-end margin-right">{{ entry.date }}</strong>
+                                </div>
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template><p class="mood">Mood: {{ entry.mood }}</p> Note: <p>{{ entry.note }}</p>
+                                    <button (click)="deleteDiaryEntry(i)" class="btn delete-overlay">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div> -->

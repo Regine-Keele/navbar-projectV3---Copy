@@ -1,0 +1,28 @@
+.navbar{
+    background-color: #ff7fb2;
+    height: 100px;
+}
+
+.navbar-brand{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.navbar-nav {
+    margin-left: auto; 
+    font-size: 20px;
+  }
+
+.nav-link{
+    margin-right: 30px;
+  }
+.nav-link.active {
+    font-weight: bold;
+    color: white; 
+  }
+
+.nav-link:hover{
+    color: white;
+    text-decoration: underline;
+  }

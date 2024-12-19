@@ -1,0 +1,183 @@
+.diary-container {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px 50px;
+    align-items: center;
+    min-height: 10vh;
+}
+
+.text-muted {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #6c757d; 
+    margin-top: 20px;
+}
+
+.modal-dialog {
+    margin-top: 110px;
+    max-width: 800px;
+}
+
+.modal-body {
+    padding: 40px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ff7fb2;
+    border-radius: 30px;
+    padding: 10px 30px 15px 30px;
+    background-color: #ff7fb215;
+    margin-bottom: 20px;
+}
+
+.top {
+    margin-top: 30px;
+    margin-bottom: 28px;
+    font-size: 35px;
+}
+
+.d-flex {
+    margin-top: 10px;
+}
+
+.but {
+    background-color: pink;
+    color: black;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.but:hover {
+    background-color: #ff7fb2;
+    color: white;
+    transform: scale(1.10);
+}
+
+.submit-button {
+    width: 120px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.submit-button:hover {
+    background-color: rgb(117, 182, 117);
+}
+
+.submit-button:disabled {
+    background-color: gray;
+    color: rgb(68, 68, 68);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.res {
+    background-color: #ff7fb2;
+}
+
+.res:hover {
+    background-color: rgb(255, 97, 97);
+}
+
+.field {
+    width: 650px;
+    padding: 5px;
+}
+
+.note {
+    height: 250px;
+    resize: vertical;
+}
+
+.diary-entries {
+    background-color: pink;
+    border: solid 4px #ff7fb2;
+    color: black;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+}
+
+.diary-entries:hover {
+    color: white;
+    border: solid 4px pink;
+    background-color: #ff7fb2;
+}
+
+
+.delete-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: transparent;
+    opacity: 0;
+    font-size: 24px;
+    transition: opacity 0.3s, color 0.3s;
+}
+
+
+.diary-entries:hover .delete-overlay {
+    color: white;
+    opacity: 1;
+}
+
+.bi-trash:hover {
+    color: red;
+}
+
+.margin-right {
+    margin-right: 10px;
+}
+.mood{
+    color: gray;
+}
+/* .custom-accordion{
+    border: none;
+}
+
+.custom-accordion-button {
+    background-color: pink; 
+    border: solid 3px #ff7fb2;
+}
+ 
+.custom-accordion-button:hover {
+    background-color: #ff7fb2; 
+    color: white;            
+    border-color: pink; 
+}
+
+.custom-accordion-button:focus {
+    box-shadow: none; 
+} */
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; 
+  }
+
+.container, .header{
+    margin-bottom: 20px;
+}
+
+@media (max-width: 800px) {
+    .field {
+        width: 300px;
+    }
+
+    .note {
+        height: 200px;
+    }
+}
